@@ -54,7 +54,7 @@ namespace NI.TestUtilities
                 }
                 else
                 {
-                    RunTestAsync(ToFuncOfTask(test), useLoadContext: false);
+                    RunTestAsync(ToFuncOfTask(test));
                 }
             }
 
@@ -94,10 +94,10 @@ namespace NI.TestUtilities
                 var method = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
                 var obj = method.IsStatic ? null : Activator.CreateInstance(type);
 
-                RunTestAsync(ToFuncOfTask(method, obj), useLoadContext: true);
+                RunTestAsync(ToFuncOfTask(method, obj));
             }
 
-            private static void RunTestAsync(Func<Task> testAsync, bool useLoadContext)
+            private static void RunTestAsync(Func<Task> testAsync)
             {
                 ExceptionDispatchInfo edi = null;
                 var t = new Thread((o) =>
